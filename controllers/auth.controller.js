@@ -38,7 +38,6 @@ export const register = async(req, res)=>{
 
 export const login = async(req, res)=>{
    // db operations
-   
    try {
       const {username, email, password} = req?.body;
       
@@ -63,7 +62,8 @@ export const login = async(req, res)=>{
       const age = 1000 * 60 *60 * 24*7;
 
      const jwtToken = jwt.sign({
-      id: user?.id
+      id: user?.id,
+      isAdmin: true,
      }, process.env.JWT_SECRET_KEY, {expiresIn: age})
 
      const {password:userPassword, ...userInfo} = user;
