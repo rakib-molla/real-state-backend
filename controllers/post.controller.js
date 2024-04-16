@@ -14,19 +14,19 @@ export const getPosts = async(req, res)=>{
 export const getPost = async(req, res)=>{
    const id = req.params.id;
    try{
-      const getSinglePost = await prisma.post.findUnique({
-         where:{id},
-         include:{
-            postDetail: true,
-            user:{
-               select:{
-                  username: true,
-                  avatar: true,
-               }
-            }
-         }
-      });
-      res.status(200).json(getSinglePost);
+      const post = await prisma.post.findUnique({
+         where: { id },
+         include: {
+           postDetail: true,
+            user: {
+              select: {
+                username: true,
+                avatar: true,
+              },
+            },
+         },
+       });
+      res.status(200).json(post);
    }catch(err){
       console.log(err);
       res.status(500).json({message: "fail to get single post"})
